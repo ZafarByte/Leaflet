@@ -21,13 +21,15 @@ declare module "page-flip" {
 
     mobileScrollSupport?: boolean;
 
+    autoSize?: boolean;
+
     startPage?: number;
 
     maxShadowOpacity?: number;
   }
 
   export interface FlipEvent {
-    data: number;
+    data: number | string;
   }
 
   export class PageFlip {
@@ -60,6 +62,10 @@ declare module "page-flip" {
     getPageCount(): number;
 
     getCurrentPageIndex(): number;
+
+    getOrientation(): "landscape" | "portrait";
+
+    update(): void;
 
     on(
       event: string,

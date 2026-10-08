@@ -1,27 +1,28 @@
 import { useState } from "react";
 import PdfUploader from "./components/PdfUploader";
 import BookReader from "./components/BookReader";
-import type { RenderedPage } from "./lib/pdfRenderer";
+import type { RenderedPdf } from "./lib/pdfRenderer";
 import "./App.css";
 
 function App() {
-  const [pages, setPages] = useState<RenderedPage[]>([]);
+  const [pdf, setPdf] = useState<RenderedPdf | null>(null);
   const [reading, setReading] = useState(false);
 
-  const handlePdfLoaded = (loadedPages: RenderedPage[]) => {
-    setPages(loadedPages);
+  const handlePdfLoaded = (loadedPdf: RenderedPdf) => {
+    setPdf(loadedPdf);
     setReading(true);
   };
 
   const handleCloseReader = () => {
     setReading(false);
-    setPages([]);
+    setPdf(null);
   };
 
-  if (reading && pages.length > 0) {
+  if (reading && pdf && pdf.pages.length > 0) {
     return (
       <BookReader
-        pages={pages}
+        key={pdf.id}
+        pdf={pdf}
         onClose={handleCloseReader}
       />
     );

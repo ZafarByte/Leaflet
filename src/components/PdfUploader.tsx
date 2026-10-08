@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { renderPdf, type RenderedPage } from "../lib/pdfRenderer";
+import { renderPdf, type RenderedPdf } from "../lib/pdfRenderer";
 
 interface PdfUploaderProps {
-  onPdfLoaded: (pages: RenderedPage[]) => void;
+  onPdfLoaded: (pdf: RenderedPdf) => void;
 }
 
 export default function PdfUploader({ onPdfLoaded }: PdfUploaderProps) {

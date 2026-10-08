@@ -12,8 +12,18 @@ export interface RenderedPage {
   dataUrl: string;
 }
 
-export async function renderPdf(file: File): Promise<RenderedPage[]> {
+export interface RenderedPdf {
+  id: string;
+  name: string;
+  pages: RenderedPage[];
+}
+
+export async function renderPdf(file: File): Promise<RenderedPdf> {
   const arrayBuffer = await file.arrayBuffer();
+  const digest = await crypto.subtle.digest("SHA-256", arrayBuffer);
+  const id = Array.from(new Uint8Array(digest), (byte) =>
+    byte.toString(16).padStart(2, "0"),
+  ).join("");
 
   const pdf = await pdfjsLib.getDocument({
     data: arrayBuffer,
@@ -54,5 +64,5 @@ export async function renderPdf(file: File): Promise<RenderedPage[]> {
     page.cleanup();
   }
 
-  return pages;
+  return { id, name: file.name, pages };
 }

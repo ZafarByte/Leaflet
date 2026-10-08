@@ -88,7 +88,8 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .theme-option[data-theme=high-contrast] .theme-swatch{border-color:#aaa;background:linear-gradient(135deg,#000 0 50%,#ff0 50%)}
 .theme-check{margin-left:auto;color:var(--accent)}
 main{width:100%;flex:1;min-height:0;display:flex;flex-direction:column;align-items:stretch;justify-content:center;padding:14px clamp(48px,7vw,100px) 8px}
-.book-stage{position:relative;flex:1;min-height:220px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.book-stage{position:relative;flex:1;min-height:220px;display:flex;align-items:center;justify-content:safe center;overflow:auto;scrollbar-width:none;-ms-overflow-style:none}
+.book-stage::-webkit-scrollbar{display:none}
 .book-stage:before{position:absolute;top:50%;left:50%;width:min(820px,85vw);height:min(650px,76vh);border-radius:50%;background:radial-gradient(ellipse,#75806c24,transparent 70%);content:"";transform:translate(-50%,-50%);pointer-events:none}
 body[data-theme=warm-paper] .book-stage:before{background:radial-gradient(ellipse,#fffdf6b3,transparent 70%)}
 body[data-theme=high-contrast] .book-stage:before{display:none}
@@ -131,15 +132,55 @@ footer{justify-content:center;color:var(--muted);font-size:11px}
 @media(max-width:640px){header{min-height:52px;padding:8px 11px}.header-tools{gap:5px}h1{font-size:12px}.theme-control{gap:4px;font-size:10px}.theme-trigger{min-width:112px;min-height:34px;gap:6px;padding:0 7px}.theme-trigger .theme-value{font-size:10px}.theme-menu{width:170px}.theme-option{min-height:36px;padding:0 7px;font-size:11px}.header-tools button{min-height:34px;padding:0 8px;font-size:11px}main{padding:8px 41px 5px}.book-stage{min-height:180px}.page-nav{width:34px;height:34px;font-size:26px}.controls{gap:7px;margin:5px 0 8px}.controls button{min-width:36px;min-height:36px;padding:0 9px}.progress{width:70px}.thumb-panel{padding:7px 9px 9px}.thumbnail{width:54px;min-width:54px;min-height:82px}.thumbnail img{height:60px}footer{min-height:40px;padding:7px 10px;text-align:center;font-size:10px}}
 @media(max-width:360px){.theme-control>span:first-child{display:none}.theme-trigger{min-width:100px}.header-tools button span.label{display:none}main{padding-right:36px;padding-left:36px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important}}
+body{height:100vh;height:100dvh;overflow:hidden;background:radial-gradient(ellipse at 50% 45%,rgba(39,69,48,.45),transparent 48%),#111c16}
+body[data-theme=normal]{--fg:#f4f2ea;--muted:#a9b0a6;--control:#263129;--border:#ffffff24;--accent:#b7d3b0;background:radial-gradient(ellipse at 50% 45%,rgba(39,69,48,.45),transparent 48%),#111c16}
+body[data-theme=dark]{background:radial-gradient(ellipse at 50% 45%,rgba(39,69,48,.45),transparent 48%),#111c16}
+header{position:relative;z-index:5;min-height:62px;flex:0 0 auto;display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);padding:0 clamp(14px,2.5vw,34px);gap:12px;border-bottom-color:rgba(232,240,228,.1);background:rgba(14,24,18,.76);backdrop-filter:blur(12px)}
+body[data-theme=warm-paper] header{background:rgba(230,222,205,.94)}
+.header-book-label{min-width:0;overflow:hidden;color:var(--muted);font-size:12px;text-overflow:ellipsis;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:7px;color:var(--fg);font:600 19px/1 Georgia,"Times New Roman",serif;white-space:nowrap}
+.brand-mark{color:#b7d3b0;font-size:21px}
+.header-tools{justify-self:end;gap:8px}
+.theme-control{gap:0}
+.theme-trigger,.quick-theme{min-height:36px;border:1px solid var(--border);border-radius:9px;color:var(--fg);background:rgba(232,240,228,.045)}
+.theme-trigger{min-width:132px}
+.quick-theme{width:38px;display:grid;place-items:center;padding:0}
+.quick-theme svg,.fullscreen svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.7}
+main{min-height:0;justify-content:stretch;padding:14px clamp(58px,7vw,96px) 18px}
+.book-stage{min-height:0;justify-content:safe center}
+.book{width:auto;max-width:none;flex:0 0 auto}
+.page-nav{width:56px;height:56px;border-color:rgba(231,239,225,.24);color:#f0f2e9;background:rgba(235,241,229,.055);box-shadow:0 3px 18px #0002}
+body[data-theme=warm-paper] .page-nav{border-color:#433d3240;color:#433d32;background:#fffdf6d1}
+.controls{position:relative;z-index:4;min-height:60px;flex:0 0 auto;justify-content:flex-start;gap:12px;margin:14px 0 0;padding:7px 13px;border:1px solid rgba(216,232,213,.13);border-radius:19px;background:rgba(26,40,30,.78);box-shadow:0 8px 28px #0002;backdrop-filter:blur(14px)}
+body[data-theme=warm-paper] .controls{border-color:#433d3224;background:#f4eee0ed}
+.controls button{min-height:38px;border-color:var(--border);border-radius:11px;color:var(--fg);background:rgba(232,240,228,.045)}
+.controls button:hover:not(:disabled){background:rgba(232,240,228,.13);transform:none}
+.controls .thumb-toggle{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;padding:0 11px;white-space:nowrap}
+.thumb-chevron{font-size:14px;line-height:1}
+#page-slider{width:clamp(100px,16vw,220px);height:20px;flex:0 1 220px;accent-color:#c6d8bd;cursor:pointer}
+#count{min-width:64px;color:var(--fg);font-size:12px;text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.control-divider{width:1px;height:30px;flex:0 0 auto;background:var(--border)}
+.zoom-controls{min-height:38px;display:inline-flex;align-items:center;gap:9px;padding:0 5px;border:1px solid var(--border);border-radius:20px;color:var(--fg);font-size:12px;font-variant-numeric:tabular-nums}
+.zoom-controls span{min-width:36px;text-align:center}
+.zoom-controls button{width:31px;min-height:30px;padding:0;border:0;border-radius:50%;font-size:18px;line-height:1}
+.fullscreen{width:40px;display:grid;place-items:center;padding:0}
+.reader-hint{min-width:0;flex:1;margin:0;overflow:hidden;color:var(--muted);font-size:10px;text-align:right;text-overflow:ellipsis;white-space:nowrap}
+.thumb-panel{position:absolute;right:16px;bottom:88px;left:16px;z-index:4;width:min(1050px,calc(100% - 32px));margin:0 auto;border:1px solid var(--border);border-radius:14px;box-shadow:0 14px 34px #0004}
+.thumb-panel[hidden]{display:none}
+footer{display:none}
+body:fullscreen{width:100vw;height:100vh;height:100dvh}
+@media(max-width:900px){header{min-height:58px;padding:0 12px;gap:8px}.header-tools{gap:5px}main{padding:10px 52px}.page-nav{width:42px;height:42px}.controls{gap:8px;min-height:54px;margin-top:10px;padding:6px 9px}.reader-hint{display:none}}
+@media(max-width:600px){header{grid-template-columns:minmax(0,1fr) auto;min-height:58px}.brand{display:none}.header-book-label{grid-column:1}.header-tools{grid-column:2;max-width:calc(100vw - 120px);flex-wrap:wrap}.theme-trigger{min-width:112px}.theme-control>span:first-child{display:none}main{padding:8px 39px}.page-nav{width:32px;height:32px}.page-nav-prev{left:0}.page-nav-next{right:0}.controls{gap:6px;min-height:50px;margin-top:7px;padding:5px 7px;border-radius:15px}.controls .thumb-toggle{min-height:34px;gap:5px;padding:0 7px;font-size:10px}#page-slider{min-width:55px;flex-basis:75px}#count{min-width:48px;font-size:10px}.zoom-controls{min-height:34px;gap:2px;padding:0 2px;font-size:10px}.zoom-controls span{min-width:30px}.zoom-controls button{width:26px;min-height:26px}.fullscreen{width:33px;min-height:34px}.fullscreen svg,.quick-theme svg{width:16px;height:16px}.quick-theme{width:34px;min-height:34px}.control-divider:last-of-type{display:none}.thumb-panel{right:10px;bottom:67px;left:10px;width:calc(100% - 20px)}}
 </style>
 </head>
 <body data-theme="normal">
 <header>
-  <h1>${escapeHtml(title)}</h1>
+  <div class="header-book-label" title="${escapeHtml(title)}">${escapeHtml(title)}</div>
+  <div class="brand"><span class="brand-mark" aria-hidden="true">▤</span><span>Leaflet</span></div>
   <div class="header-tools">
     <div class="theme-control" id="theme-control">
-      <span>Theme</span>
       <button class="theme-trigger" id="theme-trigger" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="theme-menu">
+        <span>Theme:</span>
         <span class="theme-value" id="theme-value">Normal</span>
         <span class="theme-chevron" aria-hidden="true"></span>
       </button>
@@ -150,7 +191,9 @@ footer{justify-content:center;color:var(--muted);font-size:11px}
         <button class="theme-option" data-theme="high-contrast" type="button" role="menuitemradio" aria-checked="false"><span class="theme-swatch" aria-hidden="true"></span><span>High contrast</span><span class="theme-check" aria-hidden="true" hidden>✓</span></button>
       </div>
     </div>
-    <button id="toggle-thumbnails" type="button" aria-expanded="false" aria-controls="thumbnails"><span aria-hidden="true">▦</span> <span class="label">Thumbnails</span></button>
+    <button class="quick-theme" id="quick-theme" type="button" aria-label="Switch to Warm paper theme" title="Switch to Warm paper theme">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+    </button>
   </div>
 </header>
 <main>
@@ -160,18 +203,30 @@ footer{justify-content:center;color:var(--muted);font-size:11px}
     <button class="page-nav page-nav-next" id="next" type="button" aria-label="Next page">›</button>
     <div class="book-status" id="status" role="status">Preparing your book…</div>
   </div>
-  <nav class="controls" aria-label="Page controls">
-    <button id="previous-bottom" type="button" aria-label="Previous page" disabled>‹</button>
+  <nav class="controls" aria-label="Reading controls">
+    <button class="thumb-toggle" id="toggle-thumbnails" type="button" aria-expanded="false" aria-controls="thumbnails">
+      <span aria-hidden="true">▤</span><span>Pages</span><span class="thumb-chevron" aria-hidden="true">⌃</span>
+    </button>
+    <input id="page-slider" type="range" aria-label="Jump to page" min="0" max="${Math.max(0, pdf.pages.length - 1)}" value="0">
     <span id="count" aria-live="polite"></span>
-    <button id="next-bottom" type="button" aria-label="Next page">›</button>
-    <div class="progress" role="progressbar" aria-label="Reading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progress"></div></div>
+    <span class="control-divider" aria-hidden="true"></span>
+    <div class="zoom-controls" aria-label="Book zoom">
+      <button id="zoom-out" type="button" aria-label="Zoom out">−</button>
+      <span id="zoom-value" aria-live="polite">100%</span>
+      <button id="zoom-in" type="button" aria-label="Zoom in">+</button>
+    </div>
+    <span class="control-divider" aria-hidden="true"></span>
+    <button class="fullscreen" id="fullscreen" type="button" aria-label="Enter fullscreen" title="Fullscreen">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+    </button>
+    <span class="control-divider" aria-hidden="true"></span>
+    <p class="reader-hint"><span aria-hidden="true">⌨</span> Drag a page corner or use arrow keys to turn pages</p>
   </nav>
 </main>
 <section class="thumb-panel" id="thumbnails" hidden aria-label="Page thumbnails">
   <div class="thumb-heading"><strong>Pages</strong><span id="thumb-total"></span><button id="close-thumbnails" type="button" aria-label="Close thumbnails">×</button></div>
   <div class="thumb-rail" id="thumb-rail"></div>
 </section>
-<footer>Leaflet · Drag a page corner, swipe, use the arrows, or press ← / →. Works offline.</footer>
 <script>${embeddedPageFlip}</script>
 <script>
 const pages=${pages};
@@ -180,13 +235,17 @@ const flipRoot=document.getElementById("pageflip-root");
 const stage=document.getElementById("stage");
 const status=document.getElementById("status");
 const count=document.getElementById("count");
-const progress=document.getElementById("progress");
-const progressBar=progress.parentElement;
-const previousButtons=[document.getElementById("previous"),document.getElementById("previous-bottom")];
-const nextButtons=[document.getElementById("next"),document.getElementById("next-bottom")];
+const previousButtons=[document.getElementById("previous")];
+const nextButtons=[document.getElementById("next")];
 const thumbnailPanel=document.getElementById("thumbnails");
 const thumbnailRail=document.getElementById("thumb-rail");
 const thumbnailToggle=document.getElementById("toggle-thumbnails");
+const pageSlider=document.getElementById("page-slider");
+const zoomValue=document.getElementById("zoom-value");
+const zoomOut=document.getElementById("zoom-out");
+const zoomIn=document.getElementById("zoom-in");
+const fullscreenButton=document.getElementById("fullscreen");
+const quickTheme=document.getElementById("quick-theme");
 const themeControl=document.getElementById("theme-control");
 const themeTrigger=document.getElementById("theme-trigger");
 const themeMenu=document.getElementById("theme-menu");
@@ -195,6 +254,7 @@ const themeOptions=[...themeMenu.querySelectorAll(".theme-option")];
 let pageFlip=null;
 let current=0;
 let orientation="landscape";
+let zoom=100;
 function visiblePageIndices(){
   if(orientation==="portrait")return [current];
   if(current===0)return [0];
@@ -209,12 +269,8 @@ function updateReader(){
   previousButtons.forEach(button=>button.disabled=current===0);
   nextButtons.forEach(button=>button.disabled=visible[visible.length-1]>=last);
   host.classList.toggle("is-cover",current===0&&orientation==="landscape");
-  count.textContent=current===0?"Cover · "+pages.length+" "+(pages.length===1?"page":"pages"):
-    visible.length===2?"Pages "+(visible[0]+1)+"-"+(visible[1]+1)+" of "+pages.length:
-    "Page "+(current+1)+" of "+pages.length;
-  const percentage=pages.length>1?Math.round(current/(pages.length-1)*100):100;
-  progress.style.width=percentage+"%";
-  progressBar.setAttribute("aria-valuenow",String(percentage));
+  count.textContent=visible.length===2?(visible[0]+1)+"-"+(visible[1]+1)+" / "+pages.length:(current+1)+" / "+pages.length;
+  pageSlider.value=String(current);
   thumbnailRail.querySelectorAll(".thumbnail").forEach((button,index)=>{
     if(visible.includes(index))button.setAttribute("aria-current","page");
     else button.removeAttribute("aria-current");
@@ -240,6 +296,7 @@ function buildThumbnails(){
       pageFlip?.flip(index);
       thumbnailPanel.hidden=true;
       thumbnailToggle.setAttribute("aria-expanded","false");
+      thumbnailToggle.querySelector(".thumb-chevron").textContent="⌃";
     });
     fragment.append(button);
   });
@@ -254,8 +311,16 @@ function updateSize(){
   const availablePageWidth=Math.max(160,(stage.clientWidth-(narrow?20:36))/(narrow?1:2));
   const pageWidth=Math.max(160,Math.min(availableHeight*ratio,availablePageWidth));
   const pageHeight=Math.max(220,pageWidth/ratio);
-  host.style.maxWidth=Math.min(stage.clientWidth,pageWidth*(narrow?1:2))+"px";
+  host.style.maxWidth="none";
+  host.style.width=Math.min(stage.clientWidth,pageWidth*(narrow?1:2))*(zoom/100)+"px";
   pageFlip.update();
+}
+function updateZoom(nextZoom){
+  zoom=Math.max(70,Math.min(130,nextZoom));
+  zoomValue.textContent=zoom+"%";
+  zoomOut.disabled=zoom<=70;
+  zoomIn.disabled=zoom>=130;
+  updateSize();
 }
 function initialize(){
   try{
@@ -267,7 +332,8 @@ function initialize(){
       const availablePageWidth=Math.max(160,(stage.clientWidth-(narrow?20:36))/(narrow?1:2));
       const pageWidth=Math.max(160,Math.min(availableHeight*ratio,availablePageWidth));
       const pageHeight=Math.max(220,pageWidth/ratio);
-      host.style.maxWidth=Math.min(stage.clientWidth,pageWidth*(narrow?1:2))+"px";
+      host.style.maxWidth="none";
+      host.style.width=Math.min(stage.clientWidth,pageWidth*(narrow?1:2))+"px";
       const elements=pages.map(page=>{
         const element=document.createElement("div");
         element.className="book-sheet";
@@ -302,6 +368,7 @@ function initialize(){
       updateReader();
       status.hidden=true;
       new ResizeObserver(updateSize).observe(stage);
+      updateSize();
     }).catch(error=>{
       console.error("Unable to initialize the offline flipbook.",error);
       status.textContent="The flipbook could not be opened in this browser.";
@@ -316,6 +383,22 @@ function closeThemeMenu(returnFocus){
   themeTrigger.setAttribute("aria-expanded","false");
   if(returnFocus)themeTrigger.focus();
 }
+function applyTheme(nextTheme){
+  document.body.dataset.theme=nextTheme;
+  const selected=themeOptions.find(option=>option.dataset.theme===nextTheme);
+  if(!selected)return;
+  themeValue.textContent=selected.querySelector("span:nth-child(2)").textContent;
+  themeOptions.forEach(item=>{
+    const active=item===selected;
+    item.setAttribute("aria-checked",String(active));
+    item.querySelector(".theme-check").hidden=!active;
+  });
+  quickTheme.setAttribute("aria-label",nextTheme==="warm-paper"?"Switch to Normal theme":"Switch to Warm paper theme");
+  quickTheme.title=quickTheme.getAttribute("aria-label");
+  quickTheme.innerHTML=nextTheme==="warm-paper"
+    ?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.2 15.3A8.5 8.5 0 0 1 8.7 3.8 8.7 8.7 0 1 0 20.2 15.3Z"/></svg>'
+    :'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>';
+}
 themeTrigger.addEventListener("click",()=>{
   const opening=themeMenu.hidden;
   themeMenu.hidden=!opening;
@@ -329,13 +412,7 @@ themeOptions.forEach((option,index)=>{
   option.addEventListener("click",()=>{
     const nextTheme=option.dataset.theme;
     if(!nextTheme)return;
-    document.body.dataset.theme=nextTheme;
-    themeValue.textContent=option.querySelector("span:nth-child(2)").textContent;
-    themeOptions.forEach(item=>{
-      const selected=item===option;
-      item.setAttribute("aria-checked",String(selected));
-      item.querySelector(".theme-check").hidden=!selected;
-    });
+    applyTheme(nextTheme);
     closeThemeMenu(true);
   });
   option.addEventListener("keydown",event=>{
@@ -347,6 +424,9 @@ themeOptions.forEach((option,index)=>{
     else if(event.key==="Escape"){event.preventDefault();closeThemeMenu(true);return}
     if(nextIndex!==null){event.preventDefault();themeOptions[nextIndex].focus()}
   });
+});
+quickTheme.addEventListener("click",()=>{
+  applyTheme(document.body.dataset.theme==="warm-paper"?"normal":"warm-paper");
 });
 document.addEventListener("pointerdown",event=>{
   if(!themeControl.contains(event.target))closeThemeMenu(false);
@@ -372,14 +452,43 @@ nextButtons.forEach(button=>button.addEventListener("click",turnNext));
 thumbnailToggle.addEventListener("click",()=>{
   thumbnailPanel.hidden=!thumbnailPanel.hidden;
   thumbnailToggle.setAttribute("aria-expanded",String(!thumbnailPanel.hidden));
+  thumbnailToggle.querySelector(".thumb-chevron").textContent=thumbnailPanel.hidden?"⌃":"⌄";
 });
 document.getElementById("close-thumbnails").addEventListener("click",()=>{
   thumbnailPanel.hidden=true;
   thumbnailToggle.setAttribute("aria-expanded","false");
+  thumbnailToggle.querySelector(".thumb-chevron").textContent="⌃";
   thumbnailToggle.focus();
 });
+function seekToSliderPage(){
+  if(pageFlip&&Number(pageSlider.value)!==current)pageFlip.flip(Number(pageSlider.value));
+}
+pageSlider.addEventListener("pointerup",seekToSliderPage);
+pageSlider.addEventListener("keyup",seekToSliderPage);
+zoomOut.addEventListener("click",()=>updateZoom(zoom-10));
+zoomIn.addEventListener("click",()=>updateZoom(zoom+10));
+function updateFullscreenButton(){
+  const fullscreen=Boolean(document.fullscreenElement);
+  fullscreenButton.setAttribute("aria-label",fullscreen?"Exit fullscreen":"Enter fullscreen");
+  fullscreenButton.title=fullscreen?"Exit fullscreen":"Fullscreen";
+  fullscreenButton.innerHTML=fullscreen
+    ?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4v5H4m16 0h-5V4M4 15h5v5m10-5h-5v5"/></svg>'
+    :'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5m6 0h5v5M20 15v5h-5M9 20H4v-5"/></svg>';
+}
+fullscreenButton.addEventListener("click",async()=>{
+  try{
+    if(document.fullscreenElement)await document.exitFullscreen();
+    else await document.body.requestFullscreen();
+  }catch(error){
+    console.error("Unable to change fullscreen mode.",error);
+    status.textContent="Fullscreen mode is not available in this browser.";
+    status.hidden=false;
+    window.setTimeout(()=>{status.hidden=true},3000);
+  }
+});
+document.addEventListener("fullscreenchange",updateFullscreenButton);
 document.addEventListener("keydown",event=>{
-  if(themeMenu.contains(event.target)||event.target instanceof HTMLInputElement||event.target instanceof HTMLTextAreaElement)return;
+  if(themeMenu.contains(event.target)||event.target instanceof HTMLInputElement||event.target instanceof HTMLTextAreaElement||event.target instanceof HTMLButtonElement)return;
   if(event.key==="ArrowLeft"){event.preventDefault();turnPrevious()}
   else if(event.key==="ArrowRight"){event.preventDefault();turnNext()}
 });
